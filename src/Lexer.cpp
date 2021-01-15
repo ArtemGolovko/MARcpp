@@ -19,12 +19,12 @@ char Lexer::read()
 
 bool Lexer::isDigit(char char_) 
 {
-    return static_cast<int>(char_) >= static_cast<int>('0') && static_cast<int>(char_) <= static_cast<int>('9');
+    return char_ >= '0' && char_ <= '9';
 }
 
 bool Lexer::isLetter(char char_) {
-    return static_cast<int>(char_) >= static_cast<int>('A') && static_cast<int>(char_) <= static_cast<int>('Z') ||
-        static_cast<int>(char_) >= static_cast<int>('a') && static_cast<int>(char_) <= static_cast<int>('z') ||
+    return char_ >= 'A' && char_ <= 'Z' ||
+        char_ >= 'a' && char_ <= 'z' ||
         char_ == '_';
 }
 

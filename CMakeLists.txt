@@ -5,6 +5,6 @@ project(mar)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 file(GLOB 
-    CPPS "src/*.cpp")
+    CPP_SRC "src/*.cpp")
 
-add_executable(${PROJECT_NAME} ${CPPS})
+add_executable(${PROJECT_NAME} ${CPP_SRC})
