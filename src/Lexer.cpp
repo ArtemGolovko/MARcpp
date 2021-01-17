@@ -227,7 +227,7 @@ list<Token> Lexer::tokenize()
             }
             break;
         case '|':
-            if (this->read() == '|')
+            if (read() == '|')
             {
                 tokens.push_back(Token{OR});
             }
