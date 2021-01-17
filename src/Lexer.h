@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include <vector>
+#include <list>
 #include "Token.h"
 
 using namespace std;
@@ -24,7 +24,7 @@ private:
     bool isDigit(char char_);
 public:
     Lexer(string code);
-    vector<Token> tokenize();
+    list<Token> tokenize();
 };
 
 #endif

@@ -1,5 +1,5 @@
 #include <iostream>
-#include <vector>
+#include <list>
 #include <string>
 #include "Token.h"
 #include "Node.h"
@@ -10,10 +10,10 @@
 class Parser
 {
 public:
-    Parser(vector<Token> tokens);
+    Parser(list<Token> tokens);
     Node parse();
 private:
-    vector<Token> tokens;
+    list<Token> tokens;
 };
 
 #endif

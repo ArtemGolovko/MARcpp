@@ -1,8 +1,7 @@
 #include "Parser.h"
 
-Parser::Parser(vector<Token> tokens)
+Parser::Parser(list<Token> tokens) : tokens(tokens)
 {
-    this->tokens = tokens;
 }
 
 Node Parser::parse()
@@ -10,9 +9,9 @@ Node Parser::parse()
     StandartNode topLevelNode;
     topLevelNode.name = TOP_LEVEL;
 
-    for (int i = 0; i < this->tokens.size(); i++)
+    for (auto it = tokens.cbegin(); it != tokens.cend(); ++it)
     {
-        Token currentToken = this->tokens[i];
+        Token currentToken = *it;
         
     }
 

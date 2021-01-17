@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-#include <vector>
+#include <list>
 #include "Lexer.h"
 #include "Parser.h"
 

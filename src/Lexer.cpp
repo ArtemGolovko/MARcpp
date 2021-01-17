@@ -1,20 +1,19 @@
 #include "Lexer.h"
 
 
-Lexer::Lexer(string code) 
+Lexer::Lexer(string input) : input(input)
 {
-    this->input = code;
 }
 
 char Lexer::read() 
 {
-    if (this->position < this->input.length()) {
-        this->char_ = input[this->position];
-        this->position++;
+    if (position < input.length()) {
+        char_ = input[position];
+        position++;
     } else {
-        this->char_ = 0;
+        char_ = 0;
     }
-    return this->char_;
+    return char_;
 }
 
 bool Lexer::isDigit(char char_) 
@@ -31,19 +30,19 @@ bool Lexer::isLetter(char char_) {
 Token Lexer::readNumber()
 {
     Token token = {INT};
-    int returnPosition = this->position;
+    int returnPosition = position;
 
 loop:
-    while (this->isDigit(this->char_))
+    while (isDigit(char_))
     {
-        token.literal += string(1, this->char_);
-        returnPosition = this->position;
-        this->read();
+        token.literal += string(1, char_);
+        returnPosition = position;
+        read();
     }
 
-    if (this->char_ == '.')
+    if (char_ == '.')
     {
-        if (this->isDigit(this->read()) && token.type != FLOAT)
+        if (isDigit(read()) && token.type != FLOAT)
         {
             token.type = FLOAT;
             token.literal += ".";
@@ -54,7 +53,7 @@ loop:
             token.type = ILLEGAL;
         }
     }
-    this->position = returnPosition;
+    position = returnPosition;
 
     return token;
 }
@@ -62,15 +61,15 @@ loop:
 Token Lexer::readIndentifier()
 {
     Token token = {IDENT};
-    int returnPosition = this->position;
+    int returnPosition = position;
 
-    while (this->isLetter(this->char_) || this->isDigit(this->char_))
+    while (isLetter(char_) || isDigit(char_))
     {
-        token.literal += string(1, this->char_);
-        returnPosition = this->position;
-        this->read();
+        token.literal += string(1, char_);
+        returnPosition = position;
+        read();
     }
-    this->position = returnPosition;
+    position = returnPosition;
 
     return token;
 }
@@ -79,26 +78,26 @@ Token Lexer::readString(char startChar)
 {
     Token token = {STRING};
 
-    while (this->read() != startChar)
+    while (read() != startChar)
     {
-        if (this->char_ == 0)
+        if (char_ == 0)
         {
             cout << "Unexcepted EOF" << endl;
             break;
         }
-        token.literal += string(1, this->char_);
+        token.literal += string(1, char_);
     }
     
     return token;
 }
 
-vector<Token> Lexer::tokenize()
+list<Token> Lexer::tokenize()
 {
-    vector<Token> tokens;
+    list<Token> tokens;
 
     while (true)
     {
-        switch (this->read())
+        switch (read())
         {
         case ' ':
         case '\n':
@@ -107,123 +106,123 @@ vector<Token> Lexer::tokenize()
         case '\r':
             break;
         case '+':
-            if (this->read() == '=')
+            if (read() == '=')
             {
                 tokens.push_back(Token{ADDa});
             }
             else
             {
-                this->position--;
+                position--;
                 tokens.push_back(Token{ADD});
             }
             break;
         case '-':
-            if (this->read() == '=')
+            if (read() == '=')
             {
                 tokens.push_back(Token{SUBa});
             }
             else
             {
-                this->position--;
+                position--;
                 tokens.push_back(Token{SUB});
             }
             break;
         case '*':
-            if (this->read() == '=')
+            if (read() == '=')
             {
                 tokens.push_back(Token{MULa});
             }
             else
             {
-                this->position--;
+                position--;
                 tokens.push_back(Token{MUL});
             }
             break;
         case '/':
-            if (this->read() == '=')
+            if (read() == '=')
             {
                 tokens.push_back(Token{DIVa});
             }
             else
             {
-                this->position--;
+                position--;
                 tokens.push_back(Token{DIV});
             }
             break;
         case '%':
-            if (this->read() == '=')
+            if (read() == '=')
             {
                 tokens.push_back(Token{MODa});
             }
             else
             {
-                this->position--;
+                position--;
                 tokens.push_back(Token{MOD});
             }
             break;
         case '^':
-            if (this->read() == '=')
+            if (read() == '=')
             {
                 tokens.push_back(Token{POWa});
             }
             else
             {
-                this->position--;
+                position--;
                 tokens.push_back(Token{POW});
             }
             break;
         case '=':
-            if (this->read() == '=')
+            if (read() == '=')
             {
                 tokens.push_back(Token{EQU});
             }
             else
             {
-                this->position--;
+                position--;
                 tokens.push_back(Token{ASS});
             }
             break;
         case '>':
-            if (this->read() == '=')
+            if (read() == '=')
             {
                 tokens.push_back(Token{LARe});
             }
             else
             {
-                this->position--;
+                position--;
                 tokens.push_back(Token{LAR});
             }
             break;
         case '<':
-            if (this->read() == '=')
+            if (read() == '=')
             {
                 tokens.push_back(Token{LESe});
             }
             else
             {
-                this->position--;
+                position--;
                 tokens.push_back(Token{LES});
             }
             break;
         case '!':
-            if (this->read() == '=')
+            if (read() == '=')
             {
                 tokens.push_back(Token{NOTe});
             }
             else
             {
-                this->position--;
+                position--;
                 tokens.push_back(Token{NOT});
             }
             break;
         case '&':
-            if (this->read() == '&')
+            if (read() == '&')
             {
                 tokens.push_back(Token{AND});
             }
             else
             {
-                this->position--;
+                position--;
                 // tokens.push_back(Token{BitAND});
             }
             break;
@@ -234,7 +233,7 @@ vector<Token> Lexer::tokenize()
             }
             else
             {
-                this->position--;
+                position--;
                 // tokens.push_back(Token{BitOR});
             }
             break;
@@ -261,18 +260,18 @@ vector<Token> Lexer::tokenize()
             break;
         case '\'':
         case '"':
-            tokens.push_back(this->readString(this->char_));
+            tokens.push_back(readString(char_));
             break;
         case 0:
             return tokens;
         default:
-            if (this->isLetter(this->char_))
+            if (isLetter(char_))
             {
-                tokens.push_back(this->readIndentifier());
+                tokens.push_back(readIndentifier());
             } 
-            else if (this->isDigit(this->char_))
+            else if (isDigit(char_))
             {
-                tokens.push_back(this->readNumber());
+                tokens.push_back(readNumber());
             }
         }
     }

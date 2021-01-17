@@ -4,7 +4,7 @@
 void Repl::parse(string code) 
 {
     Lexer lexer(code);
-    vector<Token> tokens = lexer.tokenize();
+    list<Token> tokens = lexer.tokenize();
 
     Parser parser(tokens);
     Node ast = parser.parse(); 
