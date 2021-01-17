@@ -255,9 +255,9 @@ list<Token> Lexer::tokenize()
         case ';':
             tokens.push_back(Token{SEMICOLON});
             break;
-        case '?':
-            tokens.push_back(Token{IF});
-            break;
+        case ',':
+        	tokens.push_back(Token{COMMA});
+        	break;
         case '\'':
         case '"':
             tokens.push_back(readString(char_));

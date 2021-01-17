@@ -46,8 +46,6 @@ enum TokenType
     SEMICOLON, // ;
     COMMA,     // ,
 
-    THEN, // ->
-    IF,   // ?
     STRING, // "...", '...'
 };
 
